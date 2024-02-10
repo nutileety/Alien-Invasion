@@ -1,2 +1,2 @@
 # Space_Invaders
-mini game
+mini game using python pygame module
