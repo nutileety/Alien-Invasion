@@ -2,6 +2,7 @@ import pygame
 import sys
 import random
 import math
+from pygame import mixer
 
 pygame.init()
 
@@ -10,6 +11,10 @@ title = pygame.display.set_caption("Space Invaders")
 
 # adding the background image
 background = pygame.image.load('images/background.png')
+
+#background music
+mixer.music.load("audios/background.wav")
+mixer.music.play(-1)
 
 #setting the icon and image
 icon = pygame.image.load('images/alien.png')
@@ -45,12 +50,12 @@ bullet_state = "ready"
 
 # displaying the score on the game window
 score_value = 0
-font = pygame.font.Font('freesansbold.ttf',32)
+font = pygame.font.Font('freesansbold.ttf',25)
 textX = 10
 TextY = 10
 
 def show_score(x,y):
-    score = font.render("Score :"+str(score_value),True,(255,255,255))
+    score = font.render("Score : "+str(score_value),True,(255,255,255))
     screen.blit(score,(x,y))
 
 def player(x,y):
@@ -96,6 +101,8 @@ while True:
             #shooting the bullet for space
             if event.key == pygame.K_SPACE:
                 if bullet_state is "ready":
+                    shoot_sound = mixer.Sound("audios/shoot.wav")
+                    shoot_sound.play()
                 # bulletX is assigned by the position is x-coordinate of the player 
                     bulletX = playerX
                     fire_bullet(bulletX,bulletY)
@@ -134,6 +141,9 @@ while True:
             print(score_value)
             enemyX[i] = random.randint(0,735)
             enemyY[i] = random.randint(50,150)
+            # adding blast sound
+            blast_sound = mixer.Sound("audios/blast.wav")
+            blast_sound.play()
 
         #calling the i function
         enemy(enemyX[i],enemyY[i],i)
