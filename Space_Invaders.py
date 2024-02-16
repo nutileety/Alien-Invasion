@@ -58,6 +58,11 @@ TextY = 10
 over_font = pygame.font.Font('freesansbold.ttf',60)
 
 # declaring all function below
+def show_score(x,y):
+    """setting font for the score"""
+    score = font.render("Score : "+str(score_value),True,(255,255,255))
+    screen.blit(score,(x,y))
+
 def player(x,y):
     """ drawing the player to the screen """
     screen.blit(playerImg,(x,y))
