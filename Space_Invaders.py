@@ -54,10 +54,10 @@ font = pygame.font.Font('freesansbold.ttf',25)
 textX = 10
 TextY = 10
 
-def show_score(x,y):
-    score = font.render("Score : "+str(score_value),True,(255,255,255))
-    screen.blit(score,(x,y))
+# setting the game over text
+over_font = pygame.font.Font('freesansbold.ttf',60)
 
+# declaring all function below
 def player(x,y):
     """ drawing the player to the screen """
     screen.blit(playerImg,(x,y))
@@ -79,6 +79,15 @@ def isCollision(enemyX,enemyY,bulletX,bulletY):
         return True
     else:
         return False
+    
+def show_score(x,y):
+    """function to show the score"""
+    score = font.render("Score : "+str(score_value),True,(255,255,255))
+    screen.blit(score,(x,y))
+
+def game_over_text():
+    over_text = over_font.render("GAME OVER",True,(255,255,255))
+    screen.blit(over_text,(200,250))
 
 # the screen will not hold until it is not looped infinately.
 while True:
@@ -122,9 +131,16 @@ while True:
         playerX = 736
 
     for i in range(no_of_enemies):
+        # game over 
+        if enemyY[i] > 450:
+            for j in range(no_of_enemies):
+                enemyY[j] = 2000
+            game_over_text()
+            break    
+    
     # initialinzing the movement position of the ship
         enemyX[i] += enemyX_change[i]
-        #setting boundary to the i
+        #setting boundary to the enemy
         if enemyX[i] <= 0:
             enemyX_change[i] = 1
             enemyY[i] += enemyY_change[i]
